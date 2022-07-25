@@ -30,8 +30,150 @@ require File.expand_path(File.dirname(__FILE__) + '/neo')
 # Your goal is to write the score method.
 
 def score(dice)
-  # You need to write this method
+  # in order to score the dice you need to check for grouped values
+  # I'd like to start by sorting the numbers so that we know how many of a number we have if we get to the next number
+
+  # seq | pts
+  # ___________
+  # 111  ==  1000
+  # xxx  == x * 100
+  # 1  ==  100
+  # 5  == 50
+
+
+  # set total var
+  total = 0 
+
+
+    
+  puts '-------'
+  puts 'dice: '
+  puts dice 
+  puts '-------'
+
+  puts '-------'
+  puts 'length'
+  puts dice.length
+  puts '-------'
+
+  # edge cases
+  # 0 dice 
+  if dice.length == 0 
+    total
+  end 
+  # no dice
+  if dice.length == 1
+    total = calculate_die_score(dice[0], 1)
+  end
+
+  if dice.length > 1
+  # step 1 order dice by num asc
+    sorted = dice.sort
+    puts '-------'
+    puts 'sorted: '
+    puts sorted 
+    puts '-------'
+
+
+    #step 2 establish two pointers
+    counter = 0 
+
+    while counter < sorted.length do 
+      p1 = counter
+      p2 = counter + 1
+      puts 'counter 1: ', p1 
+      puts 'counter 2: ' ,p2 
+
+
+      #step 3 get value of first die
+      d1 = sorted[p1]
+      
+      # step 4 check second die
+      d2 = sorted[p2]
+
+      puts '---------'
+      puts 'd1 = ', d1
+      puts 'd2 = ', d2
+      puts '---------'
+
+      #step 5 compare die 
+      match = d1 == d2
+
+      # if the values of the die don't match 
+      if(!match) 
+        total += calculate_die_score(d1, 1)
+        counter += 1
+      end
+
+      if(match)
+        # create pointer for third die
+        p3 = counter + 2
+
+        # get value of third die
+        d3 = sorted[p3]
+
+        # check if third die matches 
+        match_2 = d2 == d3
+        if(!match_2)
+          # this means the first 2 die were the same but the third wasn't
+          # so we will add the points of the first 2 die 
+          total += calculate_die_score(d1, 2)
+
+          # then we set pointer to third die
+          counter += 2
+
+        else
+          # add triple score to total
+          total += calculate_die_score(d1, 3)
+
+          # set pointer 1 to fourth die
+          counter += 3
+
+        end
+
+
+      end 
+
+
+    end 
+
+  end 
+
+  puts 'total: ', total
+  total
+
 end
+
+def calculate_die_score(num, multiplier)
+  total = 0
+
+
+  puts 'num', num
+  puts 'multiplier', multiplier
+  # for non triples
+  if multiplier != 3 
+    # only 1's and 5's have value
+    if num == 1 
+      total += 100 * multiplier 
+    end
+    if num == 5 
+      total += 50 * multiplier 
+    end 
+  end 
+  
+  # for triples
+  if multiplier == 3
+    if num != 1
+     total =  num * 100
+    else 
+      total = 1000
+    end 
+  end
+
+  total 
+end 
+
+
 
 class AboutScoringProject < Neo::Koan
   def test_score_of_an_empty_list_is_zero
