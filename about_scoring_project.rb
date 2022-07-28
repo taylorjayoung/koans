@@ -45,16 +45,7 @@ def score(dice)
   total = 0 
 
 
-    
-  puts '-------'
-  puts 'dice: '
-  puts dice 
-  puts '-------'
-
-  puts '-------'
-  puts 'length'
-  puts dice.length
-  puts '-------'
+  
 
   # edge cases
   # 0 dice 
@@ -69,10 +60,6 @@ def score(dice)
   if dice.length > 1
   # step 1 order dice by num asc
     sorted = dice.sort
-    puts '-------'
-    puts 'sorted: '
-    puts sorted 
-    puts '-------'
 
 
     #step 2 establish two pointers
@@ -81,8 +68,8 @@ def score(dice)
     while counter < sorted.length do 
       p1 = counter
       p2 = counter + 1
-      puts 'counter 1: ', p1 
-      puts 'counter 2: ' ,p2 
+
+
 
 
       #step 3 get value of first die
@@ -90,11 +77,6 @@ def score(dice)
       
       # step 4 check second die
       d2 = sorted[p2]
-
-      puts '---------'
-      puts 'd1 = ', d1
-      puts 'd2 = ', d2
-      puts '---------'
 
       #step 5 compare die 
       match = d1 == d2
@@ -138,8 +120,6 @@ def score(dice)
     end 
 
   end 
-
-  puts 'total: ', total
   total
 
 end
@@ -147,9 +127,6 @@ end
 def calculate_die_score(num, multiplier)
   total = 0
 
-
-  puts 'num', num
-  puts 'multiplier', multiplier
   # for non triples
   if multiplier != 3 
     # only 1's and 5's have value
