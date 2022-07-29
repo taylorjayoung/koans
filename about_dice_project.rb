@@ -20,10 +20,8 @@ class DiceSet
     while counter < dice_count  do 
 
       die = 1 + rand(6)
-      puts die 
 
       results.push(die)
-      puts "results: #{results} "
 
       counter = counter + 1    
     end

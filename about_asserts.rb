@@ -13,7 +13,6 @@ class AboutAsserts < Neo::Koan
   # Enlightenment may be more easily achieved with appropriate
   # messages.
   def test_assert_with_message
-    puts "asserting truth"
     assert true, "This should be true -- Please fix this"
   end
 
